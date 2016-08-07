@@ -1,0 +1,130 @@
+<?php
+
+namespace WechatOP\Socialite\Providers;
+
+use Overtrue\Socialite\AccessTokenInterface;
+use Overtrue\Socialite\Providers\AbstractProvider;
+use Overtrue\Socialite\User;
+use Symfony\Component\HttpFoundation\Request;
+use WechatOP\Core\AuthAccessToken;
+use WechatOP\Foundation\Config;
+use WechatOP\OpenPlatform\OpenPlatform;
+
+class WechatOpenPlatformServiceProvider extends AbstractProvider
+{
+    /**
+     * @var OpenPlatform
+     */
+    protected $openPlatform;
+
+    /**
+     * @var Config
+     */
+    protected $config;
+
+    public function __construct(Request $request, OpenPlatform $openPlatform, Config $config)
+    {
+        parent::__construct(
+            $request,
+            $config->get('app_id'),
+            $config->get('app_secret'),
+            $config->get('redirect_url')
+        );
+
+        $this->request = $request;
+        $this->openPlatform = $openPlatform;
+        $this->config = $config;
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    protected function getAuthUrl($state)
+    {
+        $preCode = $this->openPlatform->getPreAuthCode();
+
+        return $this->buildAuthUrlFromBase(
+            "https://mp.weixin.qq.com/cgi-bin/componentloginpage",
+            $preCode->get('pre_auth_code')
+        );
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    protected function buildAuthUrlFromBase($url, $preCode)
+    {
+        $query = http_build_query($this->getCodeFields($preCode), '', '&', PHP_QUERY_RFC1738);
+
+        return $url . '?' . $query;
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    protected function getCodeFields($preCode)
+    {
+        return [
+            'component_appid' => $this->config->get('app_id'),
+            'pre_auth_code'   => $preCode,
+            'redirect_uri'    => $this->config->get('redirect_url')
+        ];
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    public function getAccessToken($code)
+    {
+        $authInfo = $this->openPlatform->getAuthorizerAuthInfo($code);
+
+        return new AuthAccessToken($authInfo);
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    protected function getUserByToken(AccessTokenInterface $token)
+    {
+        $response = $this->openPlatform->getAuthorizerBaseInfo($token->get('authorizer_appid'));
+
+        return $response;
+    }
+
+    /**
+     * {@inheritdoc}.
+     */
+    protected function mapUserToObject(array $user)
+    {
+        return new User([
+            'id'                 => $this->arrayItem($user, 'authorization_info.appid'),
+            'name'               => $this->arrayItem($user, 'authorizer_info.nick_name'),
+            'nickname'           => $this->arrayItem($user, 'authorizer_info.nick_name'),
+            'avatar'             => $this->arrayItem($user, 'authorizer_info.head_img'),
+            'email'              => null,
+            'authorizer_info'    => $this->arrayItem($user, 'authorization_info'),
+            'qrcode_url'         => $this->arrayItem($user, 'qrcode_url'),
+            'authorization_info' => $this->arrayItem($user, 'authorization_info'),
+        ]);
+    }
+
+    /**
+     * Get the token URL for the provider.
+     *
+     * @return string
+     */
+    protected function getTokenUrl()
+    {
+        return null;
+    }
+
+    /**
+     * Get the code from the request.
+     *
+     * @return string
+     */
+    protected function getCode()
+    {
+        return $this->request->get('auth_code');
+    }
+}

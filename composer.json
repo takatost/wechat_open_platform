@@ -1,0 +1,34 @@
+{
+    "name": "takatost/wechat_open_platform",
+    "description": "Wechat Open Platform SDK",
+    "keywords": [
+        "wechat", 
+        "weixin", 
+        "sdk", 
+        "open-platform", 
+        "wechat-open-platform"
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "guzzlehttp/guzzle": "~5.0|~6.0",
+        "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0",
+        "overtrue/wechat": "~3.0",
+        "overtrue/socialite": ">=1.0.7"
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "~4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "takatost",
+            "email": "takatost@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "WechatOP\\": "src/"
+      }
+    }
+}
