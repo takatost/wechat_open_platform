@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the takatost/wechat_open_platform.
+ *
+ * (c) takatost <takatost@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 namespace WechatOP\Foundation;
 
@@ -157,6 +165,17 @@ class WechatOpenApplication extends Container
     public function __set($id, $value)
     {
         $this->offsetSet($id, $value);
+    }
+
+    /**
+     * Magic isset access.
+     *
+     * @param $id
+     * @return bool
+     */
+    public function __isset($id)
+    {
+        return $this->offsetExists($id);
     }
 
     /**

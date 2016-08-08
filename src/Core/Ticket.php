@@ -1,9 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: JohnWang <takato@vip.qq.com>
- * Date: 2016/8/7
- * Time: 22:36
+/*
+ * This file is part of the takatost/wechat_open_platform.
+ *
+ * (c) takatost <takatost@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace WechatOP\Core;
