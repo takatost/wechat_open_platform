@@ -14,6 +14,7 @@ use Overtrue\Socialite\AccessTokenInterface;
 use Overtrue\Socialite\Providers\AbstractProvider;
 use Overtrue\Socialite\User;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use WechatOP\Core\AuthAccessToken;
 use WechatOP\Foundation\Config;
 use WechatOP\OpenPlatform\OpenPlatform;
@@ -38,6 +39,9 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
             $config->get('app_secret'),
             $config->get('redirect_url')
         );
+
+        $session = new Session();
+        $request->setSession($session);
 
         $this->request = $request;
         $this->openPlatform = $openPlatform;
