@@ -210,7 +210,7 @@ class WechatOpenApplication extends Container
         $this['ticket'] = function () {
             return new Ticket(
                 $this['config']['app_id'],
-                isset($this['ticket_cache']) ? $this['ticket_cache'] : $this['cache']
+                isset($this['config']['ticket_cache']) ? $this['config']['ticket_cache'] : $this['cache']
             );
         };
 
