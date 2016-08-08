@@ -65,7 +65,7 @@ class AccessToken extends BaseAccessToken
 
         $http = $this->getHttp();
 
-        $token = $http->parseJSON($http->get(self::API_TOKEN_GET, $params));
+        $token = $http->parseJSON($http->json(self::API_TOKEN_GET, $params));
 
         if (empty($token['component_access_token'])) {
             throw new HttpException('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
