@@ -43,7 +43,7 @@ class WechatOpenApplication extends Container
      *
      * @param array $config
      */
-    public function __construct(Config $config)
+    public function __construct($config)
     {
         parent::__construct();
 
