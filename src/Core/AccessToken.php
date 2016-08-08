@@ -71,6 +71,8 @@ class AccessToken extends BaseAccessToken
             throw new HttpException('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
         }
 
+        $token['access_token'] = $token['component_access_token'];
+
         return $token;
     }
 }
