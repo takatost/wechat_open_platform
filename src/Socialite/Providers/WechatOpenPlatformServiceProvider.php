@@ -99,7 +99,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
      */
     protected function getUserByToken(AccessTokenInterface $token)
     {
-        $response = $this->openPlatform->getAuthorizerBaseInfo($token->get('authorizer_appid'));
+        $response = $this->openPlatform->getAuthorizerBaseInfo($token->getAttribute('authorizer_appid'));
 
         return $response;
     }
