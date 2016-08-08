@@ -161,7 +161,7 @@ class Server
             return null;
         }
 
-        Log::debug('Message detail:', $message);
+        Log::debug('Message detail:', $message->all());
 
         $type = $this->messageTypeMapping[ $message->get('InfoType') ];
 
