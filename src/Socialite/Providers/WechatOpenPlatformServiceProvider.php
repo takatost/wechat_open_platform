@@ -115,7 +115,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
             'nickname'           => $this->arrayItem($user, 'authorizer_info.nick_name'),
             'avatar'             => $this->arrayItem($user, 'authorizer_info.head_img'),
             'email'              => null,
-            'authorizer_info'    => $this->arrayItem($user, 'authorization_info'),
+            'authorizer_info'    => $this->arrayItem($user, 'authorizer_info'),
             'qrcode_url'         => $this->arrayItem($user, 'qrcode_url'),
             'authorization_info' => $this->arrayItem($user, 'authorization_info'),
         ]);
