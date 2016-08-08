@@ -91,7 +91,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     {
         $authInfo = $this->openPlatform->getAuthorizerAuthInfo($code);
 
-        return new AuthAccessToken($authInfo->all());
+        return new AuthAccessToken($authInfo['authorization_info']);
     }
 
     /**
