@@ -137,11 +137,10 @@ class Application extends EasyWechatApplication
     protected function getAccessToken()
     {
         if ($this['config']['auth_type'] === Config::AUTH_TYPE_COMPONENT) {
-            $accessToken = new ComponentAccessToken($this['config']['app_id'], '');
-            $accessToken->setComponentRefreshToken(
-                isset($this['config']['component_refresh_token'])
-                    ? $this['config']['component_refresh_token']
-                    : null
+            $accessToken = new ComponentAccessToken(
+                $this['config']['app_id'],
+                $this['open_platform'],
+                $this['config']['component_refresh_token']
             );
         } else {
             $accessToken = new AccessToken(

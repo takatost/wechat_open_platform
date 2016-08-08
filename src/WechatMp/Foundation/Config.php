@@ -37,6 +37,7 @@ class Config extends Collection
         'secret'  => '',                    // AppSecret
         'token'   => '',                    // Token
         'aes_key' => '',                    // EncodingAESKey，安全模式下请一定要填写！！！
+        'component_refresh_token' => '',    // 授权公众号在开放平台授权后获得的刷新 Token，仅在开放平台授权模式下可用
 
         'auth_type' => self::AUTH_TYPE_MANUAL,
         'oauth'     => [

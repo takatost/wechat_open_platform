@@ -11,21 +11,30 @@
 namespace WechatOP\WechatMp\Core;
 
 use EasyWeChat\Core\AccessToken as BaseAccessToken;
+use WechatOP\OpenPlatform\OpenPlatform;
 
 class ComponentAccessToken extends BaseAccessToken
 {
-    protected $componentRefreshToken = null;
+    protected $openPlatform;
+    protected $componentRefreshToken;
+
+    public function __construct($appId, OpenPlatform $openPlatform, $componentRefreshToken)
+    {
+        parent::__construct($appId, '');
+
+        $this->openPlatform = $openPlatform;
+        $this->componentRefreshToken = $componentRefreshToken;
+    }
 
     public function getTokenFromServer()
     {
         $componentRefreshToken = $this->getComponentRefreshToken();
-        if ($componentRefreshToken === null) {
-            $entFuwuhao = EnterpriseMp::where('app_id', $this->appId)->first();
-            $componentRefreshToken = $entFuwuhao->component_refresh_token;
-        }
+        $authToken = $this->openPlatform->getTokenByRefreshToken($this->appId, $componentRefreshToken);
         
-        $wechatThird = new ThirdAuth();
-        return $wechatThird->getAuthorizerToken($this->appId, $componentRefreshToken);
+        return [
+            'access_token' => $authToken['authorizer_access_token'],
+            'expires_in' => $authToken['expires_in']
+        ];
     }
     
     /**

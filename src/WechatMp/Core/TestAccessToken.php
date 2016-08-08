@@ -29,10 +29,10 @@ class TestAccessToken extends BaseAccessToken
     public function getTokenFromServer()
     {
         $authInfo = $this->openPlatform->getAuthorizerAuthInfo($this->queryAuthCode);
-        
+
         return [
-            'access_token' => $authInfo->authorization_info->authorizer_access_token,
-            'expires_in' => $authInfo->authorization_info->expires_in
+            'access_token' => $authInfo['authorization_info']['authorizer_access_token'],
+            'expires_in' => $authInfo['authorization_info']['expires_in']
         ];
     }
 
