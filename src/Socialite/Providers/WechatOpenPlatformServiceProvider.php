@@ -43,6 +43,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
         $session = new Session();
         $request->setSession($session);
 
+        $this->stateless = true;
         $this->request = $request;
         $this->openPlatform = $openPlatform;
         $this->config = $config;
