@@ -51,7 +51,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     {
         $preCode = $this->openPlatform->getPreAuthCode();
 
-        return $this->buildAuthUrlFromBase(
+        return $this->buildAuthUrl(
             "https://mp.weixin.qq.com/cgi-bin/componentloginpage",
             $preCode->get('pre_auth_code')
         );
@@ -60,9 +60,9 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     /**
      * {@inheritdoc}.
      */
-    protected function buildAuthUrlFromBase($url, $preCode)
+    protected function buildAuthUrl($url, $preCode)
     {
-        $query = http_build_query($this->getCodeFields($preCode), '', '&', PHP_QUERY_RFC1738);
+        $query = http_build_query($this->getPreCodeFields($preCode), '', '&', PHP_QUERY_RFC1738);
 
         return $url . '?' . $query;
     }
@@ -70,7 +70,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     /**
      * {@inheritdoc}.
      */
-    protected function getCodeFields($preCode)
+    protected function getPreCodeFields($preCode)
     {
         return [
             'component_appid' => $this->config->get('app_id'),
