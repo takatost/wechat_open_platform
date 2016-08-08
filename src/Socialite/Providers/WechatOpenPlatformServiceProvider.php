@@ -101,7 +101,8 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     {
         $response = $this->openPlatform->getAuthorizerBaseInfo($token->getAttribute('authorizer_appid'));
 
-        return $response->all();
+        $user = $response->set('authorization_info', $token->toArray());
+        return $user->all();
     }
 
     /**
@@ -110,7 +111,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
     protected function mapUserToObject(array $user)
     {
         return new User([
-            'id'                 => $this->arrayItem($user, 'authorization_info.appid'),
+            'id'                 => $this->arrayItem($user, 'authorization_info.authorizer_appid'),
             'name'               => $this->arrayItem($user, 'authorizer_info.nick_name'),
             'nickname'           => $this->arrayItem($user, 'authorizer_info.nick_name'),
             'avatar'             => $this->arrayItem($user, 'authorizer_info.head_img'),
