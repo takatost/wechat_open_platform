@@ -39,6 +39,34 @@ class WechatOpenApplication extends Container
     ];
 
     /**
+     * 授权方公众号类型，
+     * 0代表订阅号，
+     * 1代表由历史老帐号升级后的订阅号，
+     * 2代表服务号
+     */
+    const SERVICE_TYPE_DINGYUEHAO = 0;
+    const SERVICE_TYPE_DINGYUEHAO_OLD = 1;
+    const SERVICE_TYPE_FUWUHAO = 2;
+
+    /**
+     * 授权方认证类型，
+     * -1代表未认证，
+     * 0代表微信认证，
+     * 1代表新浪微博认证，
+     * 2代表腾讯微博认证，
+     * 3代表已资质认证通过但还未通过名称认证，
+     * 4代表已资质认证通过、还未通过名称认证，但通过了新浪微博认证，
+     * 5代表已资质认证通过、还未通过名称认证，但通过了腾讯微博认证
+     */
+    const VERIFY_TYPE_NOT = -1;
+    const VERIFY_TYPE_WECHAT = 0;
+    const VERIFY_TYPE_SINA_WEIBO = 1;
+    const VERIFY_TYPE_TENCENT_WEIBO = 2;
+    const VERIFY_TYPE_NOT_NAME = 3;
+    const VERIFY_TYPE_NOT_NAME_SINA_WEIBO = 4;
+    const VERIFY_TYPE_NOT_NAME_TENCENT_WEIBO = 5;
+
+    /**
      * Application constructor.
      *
      * @param array $config
