@@ -79,7 +79,7 @@ class WechatOpenPlatformServiceProvider extends AbstractProvider
         return [
             'component_appid' => $this->config->get('app_id'),
             'pre_auth_code'   => $preCode,
-            'redirect_uri'    => $this->config->get('redirect_url')
+            'redirect_uri'    => $this->redirectUrl
         ];
     }
 
