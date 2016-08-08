@@ -32,7 +32,7 @@ class ServerServiceProvider implements ServiceProviderInterface
             return new Encryptor(
                 $pimple['open_platform_config']['app_id'],
                 $pimple['open_platform_config']['token'],
-                $pimple['open_platform_config']['encoding_aes_key']
+                $pimple['open_platform_config']['aes_key']
             );
         };
 

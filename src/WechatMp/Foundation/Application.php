@@ -12,7 +12,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
-use WechatOP\Foundation\Config;
+use WechatOP\Foundation\Config as OpConfig;
 use WechatOP\OpenPlatform\OpenPlatform;
 use WechatOP\WechatMp\Core\ComponentAccessToken;
 
@@ -28,10 +28,10 @@ class Application extends EasyWechatApplication
      * Application constructor.
      *
      * @param OpenPlatform $openPlatform
-     * @param Config       $openPlatformConfig
+     * @param OpConfig     $openPlatformConfig
      * @param array        $config
      */
-    public function __construct(OpenPlatform $openPlatform, Config $openPlatformConfig, $config)
+    public function __construct(OpenPlatform $openPlatform, OpConfig $openPlatformConfig, $config)
     {
         parent::__construct($config);
 

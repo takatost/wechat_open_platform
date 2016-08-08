@@ -4,6 +4,7 @@ namespace WechatOP\Foundation;
 
 use Doctrine\Common\Cache\Cache as CacheInterface;
 use Doctrine\Common\Cache\FilesystemCache;
+use Doctrine\Common\Cache\RedisCache;
 use EasyWeChat\Core\Http;
 use EasyWeChat\Support\Collection;
 use EasyWeChat\Support\Log;
@@ -73,6 +74,13 @@ class WechatOpenApplication extends Container
         if ($this['apps']->has($appId)) {
             return $this['apps']->get($appId);
         } else {
+            $appConfig = array_merge(
+                $this['config']->only(['debug', 'log', 'guzzle']),
+                $appConfig
+            );
+
+            $appConfig['cache'] = $this['config']['cache'];
+
             $app = new Application($this['open_platform'], $this['config'], $appConfig);
             $this['apps']->set($appId, $app);
             return $app;
@@ -174,7 +182,9 @@ class WechatOpenApplication extends Container
             $this['cache'] = $this['config']['cache'];
         } else {
             $this['cache'] = function () {
-                return new FilesystemCache(sys_get_temp_dir());
+                return $this->registerCache(
+                    is_array($this['config']['cache']) ? $this['config']['cache'] : ['driver' => null]
+                );
             };
         }
 
@@ -198,6 +208,28 @@ class WechatOpenApplication extends Container
                 $this['access_token']
             );
         };
+    }
+
+    /**
+     * Register Cache Driver
+     *
+     * @param $cacheConfig
+     * @return CacheInterface
+     */
+    protected function registerCache($cacheConfig)
+    {
+        switch ($cacheConfig['driver']) {
+            case 'redis':
+                $cacheDriver = new RedisCache();
+                break;
+            case 'filesystem':
+                $cacheDriver = new FilesystemCache($cacheConfig['dir']);
+                break;
+            default:
+                $cacheDriver = new FilesystemCache(sys_get_temp_dir());
+        }
+
+        return $cacheDriver;
     }
 
     /**

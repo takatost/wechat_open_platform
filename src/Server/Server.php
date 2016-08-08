@@ -182,7 +182,7 @@ class Server
         $encryptor = new Encryptor(
             $this->config->get('app_id'),
             $this->config->get('token'),
-            $this->config->get('encoding_aes_key')
+            $this->config->get('aes_key')
         );
 
         $message = $encryptor->decryptMsg(
