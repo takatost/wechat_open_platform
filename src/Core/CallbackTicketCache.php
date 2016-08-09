@@ -8,7 +8,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Changyi\Library\WeixinFw;
+namespace WechatOP\Core;
 
 use Doctrine\Common\Cache\CacheProvider;
 
