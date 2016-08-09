@@ -41,8 +41,6 @@ class Application extends EasyWechatApplication
      */
     public function __construct(OpenPlatform $openPlatform, OpConfig $openPlatformConfig, $config)
     {
-        parent::__construct($config);
-
         $this['config'] = function () use ($config) {
             return new Config($config);
         };
