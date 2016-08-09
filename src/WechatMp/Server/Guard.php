@@ -27,6 +27,8 @@ class Guard extends BaseGuard
      */
     protected $testMessageHandler;
 
+    protected $appId;
+
     /**
      * Handle request.
      *
@@ -39,7 +41,7 @@ class Guard extends BaseGuard
     {
         $message = $this->getMessage();
 
-        if ($message['FromUserName'] == self::TEST_APP_ID) {
+        if ($this->appId == self::TEST_APP_ID) {
             $response = $this->handleTestMessage($message);
         } else {
             $response = $this->handleMessage($message);
@@ -91,5 +93,15 @@ class Guard extends BaseGuard
         $this->testMessageHandler = $callback;
 
         return $this;
+    }
+
+    /**
+     * Set AppId
+     *
+     * @param $appId
+     */
+    public function setAppId($appId)
+    {
+        $this->appId = $appId;
     }
 }

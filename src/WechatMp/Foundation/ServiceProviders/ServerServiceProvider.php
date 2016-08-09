@@ -40,6 +40,7 @@ class ServerServiceProvider implements ServiceProviderInterface
 
         $pimple['server'] = function ($pimple) {
             $server = new Guard($pimple['open_platform_config']['token']);
+            $server->setAppId($pimple['config']['app_id']);
 
             $server->debug($pimple['config']['debug']);
 
