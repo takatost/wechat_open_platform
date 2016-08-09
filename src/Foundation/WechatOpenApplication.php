@@ -111,9 +111,7 @@ class WechatOpenApplication extends Container
 
         $appConfig['cache'] = $this['config']['cache'];
 
-        $app = new Application($this['open_platform'], $this['config'], $appConfig);
-        $this['apps']->set($appConfig['app_id'], $app);
-        return $app;
+        return new Application($this['open_platform'], $this['config'], $appConfig);
     }
 
     /**
