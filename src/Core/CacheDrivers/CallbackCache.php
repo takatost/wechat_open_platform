@@ -8,11 +8,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace WechatOP\Core;
+namespace WechatOP\Core\CacheDrivers;
 
 use Doctrine\Common\Cache\CacheProvider;
 
-class CallbackTicketCache extends CacheProvider
+class CallbackCache extends CacheProvider
 {
     protected $fetchCallback;
     protected $saveCallback;
