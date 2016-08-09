@@ -83,8 +83,6 @@ class WechatOpenApplication extends Container
             error_reporting(E_ALL);
         }
 
-        $this['apps'] = new Collection();
-
         $this->registerProviders();
         $this->registerBase();
         $this->initializeLogger();
@@ -106,21 +104,16 @@ class WechatOpenApplication extends Container
      */
     public function app($appConfig)
     {
-        $appId = $appConfig['app_id'];
-        if ($this['apps']->has($appId)) {
-            return $this['apps']->get($appId);
-        } else {
-            $appConfig = array_merge(
-                $this['config']->only(['debug', 'log', 'guzzle']),
-                $appConfig
-            );
+        $appConfig = array_merge(
+            $this['config']->only(['debug', 'log', 'guzzle']),
+            $appConfig
+        );
 
-            $appConfig['cache'] = $this['config']['cache'];
+        $appConfig['cache'] = $this['config']['cache'];
 
-            $app = new Application($this['open_platform'], $this['config'], $appConfig);
-            $this['apps']->set($appId, $app);
-            return $app;
-        }
+        $app = new Application($this['open_platform'], $this['config'], $appConfig);
+        $this['apps']->set($appConfig['app_id'], $app);
+        return $app;
     }
 
     /**
