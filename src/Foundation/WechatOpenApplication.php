@@ -12,9 +12,7 @@ namespace WechatOP\Foundation;
 
 use Doctrine\Common\Cache\Cache as CacheInterface;
 use Doctrine\Common\Cache\FilesystemCache;
-use Doctrine\Common\Cache\RedisCache;
 use EasyWeChat\Core\Http;
-use EasyWeChat\Support\Collection;
 use EasyWeChat\Support\Log;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
@@ -257,9 +255,6 @@ class WechatOpenApplication extends Container
     protected function registerCache($cacheConfig)
     {
         switch ($cacheConfig['driver']) {
-            case 'redis':
-                $cacheDriver = new RedisCache();
-                break;
             case 'filesystem':
                 $cacheDriver = new FilesystemCache($cacheConfig['dir']);
                 break;

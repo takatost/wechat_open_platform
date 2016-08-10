@@ -57,7 +57,7 @@ class Config extends Collection
 
         // 缓存
         'cache'   => [
-            'driver' => 'redis',    // redis, filesystem, laravel
+            'driver' => 'filesystem',    // filesystem, laravel
 //            'dir' => ''
         ],
 
