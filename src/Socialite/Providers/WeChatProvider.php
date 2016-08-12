@@ -10,9 +10,9 @@
 
 namespace WechatOP\Socialite\Providers;
 
+use EasyWeChat\Core\AccessToken;
 use Symfony\Component\HttpFoundation\Request;
 use Overtrue\Socialite\Providers\WeChatProvider as BaseWeChatProvider;
-use WechatOP\Foundation\Config;
 
 /**
  * Class WeChatProvider
@@ -30,7 +30,7 @@ class WeChatProvider extends BaseWeChatProvider
     /**
      * Open Platform Token
      *
-     * @var
+     * @var AccessToken
      */
     protected $componentAccessToken;
 
@@ -88,7 +88,7 @@ class WeChatProvider extends BaseWeChatProvider
             'code'       => $code,
             'grant_type' => 'authorization_code',
             'component_appid' => $this->openPlatformAppId,
-            'component_access_token' => $this->componentAccessToken
+            'component_access_token' => $this->componentAccessToken->getToken()
         ];
     }
 }
