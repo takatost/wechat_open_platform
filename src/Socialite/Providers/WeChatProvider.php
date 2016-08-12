@@ -13,6 +13,7 @@ namespace WechatOP\Socialite\Providers;
 use EasyWeChat\Core\AccessToken;
 use Symfony\Component\HttpFoundation\Request;
 use Overtrue\Socialite\Providers\WeChatProvider as BaseWeChatProvider;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class WeChatProvider
@@ -36,6 +37,9 @@ class WeChatProvider extends BaseWeChatProvider
 
     public function __construct(Request $request, $openPlatformAppId, $componentAccessToken, $clientId, $clientSecret, $redirectUrl = null)
     {
+        $session = new Session();
+        $request->setSession($session);
+
         parent::__construct($request, $clientId, $clientSecret, $redirectUrl);
 
         $this->openPlatformAppId = $openPlatformAppId;
