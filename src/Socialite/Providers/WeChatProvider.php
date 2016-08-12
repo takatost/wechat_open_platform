@@ -39,6 +39,7 @@ class WeChatProvider extends BaseWeChatProvider
         parent::__construct($request, $clientId, $clientSecret, $redirectUrl);
 
         $this->openPlatformAppId = $openPlatformAppId;
+        $this->componentAccessToken = $componentAccessToken;
     }
 
     /**
