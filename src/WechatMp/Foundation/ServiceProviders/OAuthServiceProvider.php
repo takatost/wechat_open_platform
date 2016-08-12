@@ -32,7 +32,7 @@ class OAuthServiceProvider implements ServiceProviderInterface
             $socialite = new WeChatProvider(
                 $pimple['request'],
                 $pimple['open_platform_config']['app_id'],
-                $pimple['access_token'],
+                $pimple['open_platform']->getAccessToken(),
                 $pimple['config']['app_id'],
                 $pimple['config']['secret'],
                 $callback

@@ -10,10 +10,10 @@
 
 namespace WechatOP\Socialite\Providers;
 
-use EasyWeChat\Core\AccessToken;
 use Symfony\Component\HttpFoundation\Request;
 use Overtrue\Socialite\Providers\WeChatProvider as BaseWeChatProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
+use WechatOP\Core\AccessToken;
 
 /**
  * Class WeChatProvider
@@ -29,13 +29,13 @@ class WeChatProvider extends BaseWeChatProvider
     protected $openPlatformAppId;
 
     /**
-     * Open Platform Token
+     * Open Platform
      *
      * @var AccessToken
      */
-    protected $componentAccessToken;
+    protected $openPlatformToken;
 
-    public function __construct(Request $request, $openPlatformAppId, $componentAccessToken, $clientId, $clientSecret, $redirectUrl = null)
+    public function __construct(Request $request, $openPlatformAppId, $openPlatformToken, $clientId, $clientSecret, $redirectUrl = null)
     {
         $session = new Session();
         $request->setSession($session);
@@ -43,7 +43,7 @@ class WeChatProvider extends BaseWeChatProvider
         parent::__construct($request, $clientId, $clientSecret, $redirectUrl);
 
         $this->openPlatformAppId = $openPlatformAppId;
-        $this->componentAccessToken = $componentAccessToken;
+        $this->openPlatformToken = $openPlatformToken;
     }
 
     /**
@@ -93,7 +93,7 @@ class WeChatProvider extends BaseWeChatProvider
             'code'       => $code,
             'grant_type' => 'authorization_code',
             'component_appid' => $this->openPlatformAppId,
-            'component_access_token' => $this->componentAccessToken->getToken()
+            'component_access_token' => $this->openPlatformToken->getToken()
         ];
     }
 }
