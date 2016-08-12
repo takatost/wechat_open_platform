@@ -27,7 +27,14 @@ class WeChatProvider extends BaseWeChatProvider
      */
     protected $openPlatformAppId;
 
-    public function __construct(Request $request, $openPlatformAppId, $clientId, $clientSecret, $redirectUrl = null)
+    /**
+     * Open Platform Token
+     *
+     * @var
+     */
+    protected $componentAccessToken;
+
+    public function __construct(Request $request, $openPlatformAppId, $componentAccessToken, $clientId, $clientSecret, $redirectUrl = null)
     {
         parent::__construct($request, $clientId, $clientSecret, $redirectUrl);
 
@@ -74,14 +81,14 @@ class WeChatProvider extends BaseWeChatProvider
     /**
      * {@inheritdoc}.
      */
-    protected function getTokenFields($code, $componentAccessToken)
+    protected function getTokenFields($code)
     {
         return [
             'appid'      => $this->clientId,
             'code'       => $code,
             'grant_type' => 'authorization_code',
             'component_appid' => $this->openPlatformAppId,
-            'component_access_token' => $componentAccessToken
+            'component_access_token' => $this->componentAccessToken
         ];
     }
 }
