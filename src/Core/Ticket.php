@@ -64,7 +64,7 @@ class Ticket
      */
     public function setTicket($ticket)
     {
-        return $this->getCache()->save($this->prefix . $this->appId, $ticket);
+        return $this->getCache()->save($this->prefix . $this->appId, $ticket, 600);
     }
 
     /**
