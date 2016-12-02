@@ -40,7 +40,7 @@ class WeChatProvider extends BaseWeChatProvider
         $session = new Session();
         $request->setSession($session);
 
-        parent::__construct($request, $clientId, $clientSecret, $redirectUrl);
+        parent::__construct($request, new \Overtrue\Socialite\Config([]), $clientId, $clientSecret, $redirectUrl);
 
         $this->openPlatformAppId = $openPlatformAppId;
         $this->openPlatformToken = $openPlatformToken;
