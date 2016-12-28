@@ -74,6 +74,8 @@ class Application extends EasyWechatApplication
     {
         $this->providers = $this->defaultProviders;
 
+        unset($this->providers['EasyWeChat\Foundation\ServiceProviders\OpenPlatformServiceProvider']);
+
         if ($this['config']['auth_type'] === Config::AUTH_TYPE_COMPONENT) {
             unset(
                 $this->providers[\EasyWeChat\Foundation\ServiceProviders\ServerServiceProvider::class],
