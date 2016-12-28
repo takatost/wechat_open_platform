@@ -74,13 +74,29 @@ class Application extends EasyWechatApplication
     {
         $this->providers = $this->defaultProviders;
 
-        unset($this->providers['EasyWeChat\\Foundation\\ServiceProviders\\OpenPlatformServiceProvider']);
+        $providers = [];
+        foreach($this->providers as $provider) {
+            if ($provider === 'EasyWeChat\Foundation\ServiceProviders\OpenPlatformServiceProvider') {
+                continue;
+            }
+
+            $providers[] = $provider;
+        }
+
+        $this->providers = $providers;
 
         if ($this['config']['auth_type'] === Config::AUTH_TYPE_COMPONENT) {
-            unset(
-                $this->providers[\EasyWeChat\Foundation\ServiceProviders\ServerServiceProvider::class],
-                $this->providers[\EasyWeChat\Foundation\ServiceProviders\OAuthServiceProvider::class]
-            );
+            $providers = [];
+            foreach($this->providers as $provider) {
+                if ($provider === 'EasyWeChat\Foundation\ServiceProviders\ServerServiceProvider'
+                    || $provider === 'EasyWeChat\Foundation\ServiceProviders\OAuthServiceProvider') {
+                    continue;
+                }
+
+                $providers[] = $provider;
+            }
+
+            $this->providers = $providers;
 
             array_push($this->providers, ServiceProviders\OAuthServiceProvider::class);
             array_push($this->providers, ServiceProviders\ServerServiceProvider::class);
