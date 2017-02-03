@@ -14,11 +14,11 @@ use ArrayAccess;
 use InvalidArgumentException;
 use JsonSerializable;
 use Overtrue\Socialite\AccessTokenInterface;
-use Overtrue\Socialite\AttributeTrait;
+use Overtrue\Socialite\HasAttributes;
 
 class AuthAccessToken implements AccessTokenInterface, ArrayAccess, JsonSerializable
 {
-    use AttributeTrait;
+    use HasAttributes;
 
     /**
      * AccessToken constructor.
