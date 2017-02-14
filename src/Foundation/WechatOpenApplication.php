@@ -24,6 +24,20 @@ use WechatOP\Core\Ticket;
 use WechatOP\OpenPlatform\OpenPlatform;
 use WechatOP\WechatMp\Foundation\Application;
 
+/**
+ * Class WechatOpenApplication
+ * 
+ * @property \WechatOP\Server\Server                    $server
+ * @property \WechatOP\Socialite\Providers\WechatOpenPlatformServiceProvider                     $oauth
+ * @property \WechatOP\Core\Ticket                       $ticket
+ * @property \WechatOP\Core\AccessToken                  $token
+ * @property \WechatOP\OpenPlatform\OpenPlatform         $open_platform
+ *
+ *
+ *
+ * @package WechatOP\Foundation
+ */
+
 class WechatOpenApplication extends Container
 {
     /**
